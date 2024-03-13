@@ -8,11 +8,13 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+
   basket.db:
     container_name: basket.db
     restart: always
     ports:
       - "6379:6379"
+
   discount.db:
     container_name: discount.db
     restart: always
@@ -24,6 +26,7 @@ services:
       - "5532:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
   pgadmin:
     container_name: pgadmin
     restart: always
@@ -34,6 +37,7 @@ services:
       - "5050:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+
   portainer:
     container_name: portainer
     restart: always
@@ -43,6 +47,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+
   catalog.api:
     container_name: catalog.api
     environment:
@@ -52,6 +57,7 @@ services:
       - catalog.db
     ports:
       - "8000:80"
+
   basket.api:
     container_name: basket.api
     environment:
@@ -61,4 +67,14 @@ services:
       - basket.db
     ports:
       - "8001:80"
+
+  discount.api:
+    container_name: discount.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=discount.db;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
+    depends_on:
+      - discount.db
+    ports:
+      - "8002:80"
 
