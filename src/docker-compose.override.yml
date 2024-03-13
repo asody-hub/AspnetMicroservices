@@ -33,7 +33,7 @@ services:
     ports:
       - "5050:80"
     volumes:
-      - pgadmin_data:/root/.pgadmin
+      - pgadmin_data:/var/lib/pgadmin
   portainer:
     container_name: portainer
     restart: always
@@ -42,7 +42,7 @@ services:
       - "9443:9443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data portainer/portainer-ce:latest
+      - portainer_data:/data
   catalog.api:
     container_name: catalog.api
     environment:
