@@ -1,6 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Npgsql;
 
 namespace Ordering.API.Extensions;
 
@@ -21,13 +21,13 @@ public static class HostExtensions
 
             try
             {
-                logger.LogInformation("Migrating database associated with context {DbContextName}.", nameof(context));
+                logger.LogInformation("Migrating database associated with context {DbContextName}.", typeof(TContext).Name);
 
                 InvokeSeeder(seeder, context, services);
 
                 logger.LogInformation("Migrated database associated with context {DbContextName}.", typeof(TContext).Name);
             }
-            catch (SqlException ex)
+            catch (NpgsqlException ex)
             {
                 logger.LogError(ex, "An error occurred while migrating the database associated with context {DbContextName}.", typeof(TContext).Name);
 
@@ -51,8 +51,9 @@ public static class HostExtensions
         if (context.Database.GetPendingMigrations().Any())
         {
             context.Database.Migrate();
-            seeder(context, services);
         };
+
+        seeder(context, services);
     }
 
 }

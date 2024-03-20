@@ -10,6 +10,9 @@ services:
   discount.db:
     image: postgres
 
+  order.db:
+    image: postgres
+
   pgadmin:
     image: dpage/pgadmin4
 
@@ -40,10 +43,16 @@ services:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
 
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.API/Dockerfile
+
 volumes:
-  mongo_data:
-  postgres_data:
+  mongo_catalog_data:
+  redis_basket_data:
+  postgres_discount_data:
+  postgres_order_data:
   pgadmin_data:
   portainer_data:
-
-

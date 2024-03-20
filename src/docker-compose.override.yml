@@ -7,13 +7,15 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - mongo_catalog_data:/data/db
 
   basket.db:
     container_name: basket.db
     restart: always
     ports:
       - "6379:6379"
+    volumes:
+      - redis_basket_data:/data
 
   discount.db:
     container_name: discount.db
@@ -25,7 +27,19 @@ services:
     ports:
       - "5532:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_discount_data:/var/lib/postgresql/data
+
+  order.db:
+    container_name: order.db
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=OrderDb
+    ports:
+      - "5442:5432"
+    volumes:
+      - postgres_order_data:/var/lib/postgresql/data
 
   pgadmin:
     container_name: pgadmin
@@ -88,3 +102,13 @@ services:
       - discount.db
     ports:
       - "8003:80"
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=order.db;Port=5432;Database=OrderDb;User Id=admin;Password=admin1234;"
+    depends_on:
+      - order.db
+    ports:
+      - "8004:80"
