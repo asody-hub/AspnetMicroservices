@@ -13,8 +13,14 @@ services:
   order.db:
     image: postgres
 
+  rabbitmq:
+    image: rabbitmq:management-alpine
+
   pgadmin:
     image: dpage/pgadmin4
+
+  mongo.gui:
+    image: mongo-express
 
   portainer:
     image: portainer/portainer-ce
@@ -51,8 +57,10 @@ services:
 
 volumes:
   mongo_catalog_data:
+  mongo_catalog_config:
   redis_basket_data:
   postgres_discount_data:
   postgres_order_data:
+  rabbitmq_data:
   pgadmin_data:
   portainer_data:

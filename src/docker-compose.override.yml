@@ -8,6 +8,7 @@ services:
       - "27017:27017"
     volumes:
       - mongo_catalog_data:/data/db
+      - mongo_catalog_config:/data/configdb
 
   basket.db:
     container_name: basket.db
@@ -41,6 +42,15 @@ services:
     volumes:
       - postgres_order_data:/var/lib/postgresql/data
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
   pgadmin:
     container_name: pgadmin
     restart: always
@@ -51,6 +61,15 @@ services:
       - "5050:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+
+  mongo.gui:
+    container_name: mongo.gui
+    restart: always
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=catalog.db
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+    ports:
+      - "8081:8081"
 
   portainer:
     container_name: portainer
@@ -78,8 +97,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basket.db:6379"
       - "GrpcSettings:DiscountUrl=http://discount.grpc"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - basket.db
+      - rabbitmq
     ports:
       - "8001:80"
 
@@ -108,7 +129,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:OrderingConnectionString=Server=order.db;Port=5432;Database=OrderDb;User Id=admin;Password=admin1234;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - order.db
+      - rabbitmq
     ports:
       - "8004:80"

@@ -4,10 +4,10 @@ using Ordering.Application.Features.Orders.Commands.UpdateOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 using Ordering.Domain.Entities;
 
-namespace Ordering.Application.Mappings;
-public class MappingProfile : Profile
+namespace Ordering.Application.Mapper;
+public class OrderingApplicationProfile : Profile
 {
-    public MappingProfile()
+    public OrderingApplicationProfile()
     {
         CreateMap<Order, OrdersDto>().ReverseMap();
         CreateMap<Order, CheckoutOrderCommand>().ReverseMap();
