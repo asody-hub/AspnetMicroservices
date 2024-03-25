@@ -55,6 +55,12 @@ services:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
 
+  shopping.aggregator:
+    image: ${DOCKER_REGISTRY-}shoppingaggregator
+    build:
+      context: .
+      dockerfile: ApiGateways/ShoppingAggregator/Dockerfile
+
   ocelotapigw:
     image: ${DOCKER_REGISTRY-}ocelotapigw
     build:
@@ -70,4 +76,5 @@ volumes:
   rabbitmq_data:
   pgadmin_data:
   portainer_data:
+
 
