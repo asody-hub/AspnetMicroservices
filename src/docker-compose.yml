@@ -61,11 +61,17 @@ services:
       context: .
       dockerfile: ApiGateways/ShoppingAggregator/Dockerfile
 
-  ocelotapigw:
+  ocelot.apigw:
     image: ${DOCKER_REGISTRY-}ocelotapigw
     build:
       context: .
       dockerfile: ApiGateways/OcelotApiGw/Dockerfile
+
+  web.app:
+    image: ${DOCKER_REGISTRY-}aspnetrunbasics
+    build:
+      context: .
+      dockerfile: WebApps/AspnetRunBasics/Dockerfile
 
 volumes:
   mongo_catalog_data:
@@ -76,5 +82,3 @@ volumes:
   rabbitmq_data:
   pgadmin_data:
   portainer_data:
-
-

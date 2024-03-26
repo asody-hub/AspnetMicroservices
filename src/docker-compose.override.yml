@@ -150,8 +150,8 @@ services:
     ports:
       - "8009:80"
 
-  ocelotapigw:
-    container_name: ocelotapigw
+  ocelot.apigw:
+    container_name: ocelot.apigw
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
@@ -161,3 +161,16 @@ services:
       - ordering.api
     ports:
       - "8010:80"
+
+  web.app:
+    container_name: web.app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ApiSettings:GatewayUrl=http://ocelot.apigw"
+    depends_on:
+      - ocelot.apigw
+      - catalog.api
+      - basket.api
+      - ordering.api
+    ports:
+      - "8006:80"

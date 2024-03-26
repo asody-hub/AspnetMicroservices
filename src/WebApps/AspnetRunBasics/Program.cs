@@ -7,11 +7,11 @@ builder.Services.AddRazorPages();
 
 //Add http client services at ConfigureServices(IServiceCollection services)
 builder.Services.AddHttpClient<ICatalogService, CatalogService>(client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:GatewayAddress"]));
+                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:GatewayUrl"]));
 builder.Services.AddHttpClient<IBasketService, BasketService>(client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:GatewayAddress"]));
+                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:GatewayUrl"]));
 builder.Services.AddHttpClient<IOrderService, OrderService>(client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:GatewayAddress"]));
+                client.BaseAddress = new Uri(builder.Configuration["ApiSettings:GatewayUrl"]));
 
 var app = builder.Build();
 
