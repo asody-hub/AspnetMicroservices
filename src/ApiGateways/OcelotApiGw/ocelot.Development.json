@@ -9,7 +9,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "catalog.api",
-          "Port": 80
+          "Port": "80"
         }
       ],
       "FileCacheOptions": { "TtlSeconds": 30 }
@@ -22,7 +22,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "catalog.api",
-          "Port": 80
+          "Port": "80"
         }
       ]
     },
@@ -34,7 +34,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "catalog.api",
-          "Port": 80
+          "Port": "80"
         }
       ]
     },
@@ -47,7 +47,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "basket.api",
-          "Port": 80
+          "Port": "80"
         }
       ]
     },
@@ -59,7 +59,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "basket.api",
-          "Port": 80
+          "Port": "80"
         }
       ]
     },
@@ -71,7 +71,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "basket.api",
-          "Port": 80
+          "Port": "80"
         }
       ],
       "RateLimitOptions": {

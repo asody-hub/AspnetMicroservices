@@ -1,5 +1,9 @@
 version: '3.4'
 
+# networks:
+#   src_default:
+#     external: true
+
 services:
   catalog.db:
     image: mongo
@@ -73,6 +77,12 @@ services:
       context: .
       dockerfile: WebApps/AspnetRunBasics/Dockerfile
 
+  elasticsearch:
+    image: elasticsearch:7.9.2
+
+  kibana:
+    image: kibana:7.9.2
+
 volumes:
   mongo_catalog_data:
   mongo_catalog_config:
@@ -82,3 +92,7 @@ volumes:
   rabbitmq_data:
   pgadmin_data:
   portainer_data:
+  elasticsearch_data:
+  elasticsearch_config:
+  kibana_data:
+  kibana_config:

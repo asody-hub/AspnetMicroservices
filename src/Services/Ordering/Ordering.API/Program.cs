@@ -1,3 +1,4 @@
+using Common.Logging;
 using EventBus.Messages.Common;
 using MassTransit;
 using Ordering.API.EventBusConsumer;
@@ -6,18 +7,16 @@ using Ordering.API.Mapper;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Persistence;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(OrderingProfile));
+builder.Services.AddScoped<BasketCheckoutConsumer>();
 
 builder.Services.AddMassTransit(mtconfig =>
     {
@@ -30,8 +29,12 @@ builder.Services.AddMassTransit(mtconfig =>
     });
 //builder.Services.AddMassTransitHostedService();
 
-builder.Services.AddAutoMapper(typeof(OrderingProfile));
-builder.Services.AddScoped<BasketCheckoutConsumer>();
+builder.Host.UseSerilog(Serilogger.Configure);
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

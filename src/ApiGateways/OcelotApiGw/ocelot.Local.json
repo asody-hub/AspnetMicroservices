@@ -9,7 +9,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8000
+          "Port": "8000"
         }
       ],
       "FileCacheOptions": { "TtlSeconds": 30 }
@@ -22,7 +22,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8000
+          "Port": "8000"
         }
       ]
     },
@@ -34,7 +34,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8000
+          "Port": "8000"
         }
       ]
     },
@@ -47,7 +47,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8001
+          "Port": "8001"
         }
       ]
     },
@@ -59,7 +59,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8001
+          "Port": "8001"
         }
       ]
     },
@@ -71,7 +71,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8001
+          "Port": "8001"
         }
       ],
       "RateLimitOptions": {
